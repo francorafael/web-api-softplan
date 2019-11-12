@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiOne.Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiOne.Controllers
 {
@@ -6,10 +7,17 @@ namespace ApiOne.Controllers
     [ApiController]
     public class TaxaJurosController : ControllerBase
     {
+        private readonly ITaxaJurosDomainService _taxaJurosDomainService;
+        public TaxaJurosController(ITaxaJurosDomainService taxaJurosDomainService)
+        {
+            _taxaJurosDomainService = taxaJurosDomainService;
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("0,01");
+            var result = _taxaJurosDomainService.GetTaxaDeJuros();
+            return Ok(result);
         }
     }
 }
