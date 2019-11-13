@@ -8,7 +8,7 @@ namespace ApiOne.Domain.Services
 {
     public class TaxaJurosDomainService : ITaxaJurosDomainService
     {
-        public double GetTaxaDeJuros()
+        public double ObterTaxaDeJuros()
         {
             var taxaDeJuros = 0.01;
             return taxaDeJuros;

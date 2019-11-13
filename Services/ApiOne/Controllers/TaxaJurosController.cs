@@ -1,5 +1,6 @@
 ﻿using ApiOne.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ApiOne.Controllers
 {
@@ -14,9 +15,10 @@ namespace ApiOne.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public IActionResult Get()
         {
-            var result = _taxaJurosDomainService.GetTaxaDeJuros();
+            var result = _taxaJurosDomainService.ObterTaxaDeJuros();
             return Ok(result);
         }
     }
