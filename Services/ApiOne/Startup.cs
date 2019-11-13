@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiOne.Infra;
+﻿using ApiOne.Infra;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
@@ -50,10 +45,9 @@ namespace ApiOne
                     Title = "Api One",
                     Description = "Documentation request for ApiOne",
                     Contact = new Contact { Name = "Rafael Ap. Franco José dos Santos", Url = "https://www.linkedin.com/in/rafjs/" },
-                });
+                });              
             });
 
-            //services.AddMediatR(typeof(Startup));
             services.AddSingleton(Configuration);
             RegisterServices(services);
         }
