@@ -14,7 +14,7 @@ namespace ApiTwo.Controllers
             _codigoGitHubDomainService = codigoGitHubDomainService;
         }
 
-        [HttpGet("/showmethecode")]
+        [HttpGet("showmethecode")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public IActionResult Get()
         {

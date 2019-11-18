@@ -3,20 +3,19 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:52853",
-      "sslPort": 44315
+      "applicationUrl": "http://localhost:51341",
+      "sslPort": 44356
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ApiTwo": {
+    "ApiTwo.Tests.Integration": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
@@ -30,11 +29,11 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
         "ASPNETCORE_URLS": "https://+:443;http://+:80",
-        "ASPNETCORE_HTTPS_PORT": "44316"
+        "ASPNETCORE_HTTPS_PORT": "44357"
       },
-      "httpPort": 51856,
+      "httpPort": 51342,
       "useSSL": true,
-      "sslPort": 44316
+      "sslPort": 44357
     }
   }
 }
