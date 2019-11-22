@@ -20,9 +20,12 @@ namespace ApiTwo.Domain.Services
             var taxaJuros = await ObterTaxaDeJurosApiOne();
             if(taxaJuros > 0)
             {
-                return new JurosCompostosValueObject() { Valor = taxaJuros };
-            }
+                //Valor Inicial * (1 + juros) ^ Tempo. ^ representa a operação de potência.
 
+                var juros = Math.Pow(valorInicial * (1 + taxaJuros), tempo);
+                return new JurosCompostosValueObject() { Valor = Math.Round(juros, 2) };
+            };
+            
             return default(JurosCompostosValueObject);
         }
 
