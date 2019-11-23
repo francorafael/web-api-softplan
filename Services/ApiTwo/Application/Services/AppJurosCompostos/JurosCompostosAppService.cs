@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiTwo.Application.Base;
 using ApiTwo.Application.Interfaces;
+using ApiTwo.Application.Services.AppJurosCompostos.Input;
 using ApiTwo.Application.Services.AppJurosCompostos.ViewModel;
 using ApiTwo.Domain.Interfaces;
 using ApiTwo.Domain.Models;
@@ -19,10 +21,11 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
             _jurosCompostosDomainService = jurosCompostosDomainService;
         }
 
-        public async Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostos(decimal valorInicial, int tempo)
+        public async Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostos(JurosCompostosInput input)
         {
             var result = new JsonResultBase<JurosCompostosViewModel>();
-            var validarParametros = ValidarParametrosJurosCompostos(valorInicial, tempo);
+         
+            var validarParametros = ValidarParametrosJurosCompostos(input.ValorInicial, input.Meses);
             
             if (validarParametros.Any())
             {
@@ -35,8 +38,8 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
             var jurosCompostos = new JurosCompostos()
             {
                 TaxaJuros = 0,
-                Tempo = tempo,
-                ValorInicial = valorInicial
+                Meses = input.Meses,
+                ValorInicial = input.ValorInicial
             };
 
             var jurosCalculado = await _jurosCompostosDomainService.CalcularJurosCompostos(jurosCompostos);
@@ -54,8 +57,8 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
 
             var data = new JurosCompostosViewModel()
             {
-                ValorInicial = valorInicial,
-                Meses = tempo,
+                ValorInicial = input.ValorInicial,
+                Meses = input.Meses,
                 JurosCompostosCalculado = jurosCalculado.JurosCompostosCalculado,
                 TaxaJuros = jurosCalculado.TaxaJuros
             };
@@ -66,7 +69,7 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
             return result;
         }
 
-        private IList<ValidationMessageBase> ValidarParametrosJurosCompostos(decimal? valorInicial, int? tempo)
+        private IList<ValidationMessageBase> ValidarParametrosJurosCompostos(decimal? valorInicial, int? meses)
         {
             var messages = new List<ValidationMessageBase>();
             if(!valorInicial.HasValue || (valorInicial.HasValue && valorInicial.Value <= 0))
@@ -74,9 +77,9 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
                 messages.Add(new ValidationMessageBase() { Message = "O valor inicial é obrigatório e deve ser maior que 0." });
             }
 
-            if (!tempo.HasValue || (tempo.HasValue && tempo.Value <= 0))
+            if (!meses.HasValue || (meses.HasValue && meses.Value <= 0))
             {
-                messages.Add(new ValidationMessageBase() { Message = "O tempo é obrigatório e deve ser maior que 0." });
+                messages.Add(new ValidationMessageBase() { Message = "A quantidade de meses é obrigatório e deve ser maior que 0." });
             }
 
             return messages;

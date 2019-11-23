@@ -22,9 +22,9 @@ namespace ApiTwo.Controllers
         [HttpPost("calculajuros")]
         [ProducesResponseType(typeof(JsonResultBase<JurosCompostosViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> PostAsync([FromQuery] JurosCompostosFiltroInput input)
+        public async Task<IActionResult> PostAsync([FromQuery] JurosCompostosInput input)
         {
-            var result = await _jurosCompostosAppService.CalcularJurosCompostos(input.ValorInicial, input.Meses);
+            var result = await _jurosCompostosAppService.CalcularJurosCompostos(input);
 
             if (result == null || (result != null && result.Error))
             {

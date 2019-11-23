@@ -11,11 +11,10 @@ namespace ApiTwo.Tests.Unit.Domain.Models
             var juros = new JurosCompostos()
             {
                 ValorInicial = 100,
-                Tempo = 5,
+                Meses = 5,
                 TaxaJuros = 0.01m
             };
 
-            //var jurosCalculado = juros.CalcularJurosCompostos();
             Assert.Equal(105.10m, juros.JurosCompostosCalculado);
         }
     }

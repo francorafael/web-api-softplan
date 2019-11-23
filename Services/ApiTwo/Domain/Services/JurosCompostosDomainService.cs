@@ -1,6 +1,6 @@
-﻿using ApiTwo.Domain.Core.Classes;
-using ApiTwo.Domain.Interfaces;
+﻿using ApiTwo.Domain.Interfaces;
 using ApiTwo.Domain.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,9 +10,12 @@ namespace ApiTwo.Domain.Services
     public class JurosCompostosDomainService : IJurosCompostosDomainService
     {
         private readonly HttpClient _httpClient;
-        public JurosCompostosDomainService(HttpClient httpClient)
+        private readonly IConfiguration _configuration;
+
+        public JurosCompostosDomainService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _configuration = configuration;
         }
         
         public async Task<JurosCompostos> CalcularJurosCompostos(JurosCompostos jurosCompostos)
@@ -20,7 +23,10 @@ namespace ApiTwo.Domain.Services
             var taxaJuros = await ObterTaxaDeJurosApiOne();
             if(taxaJuros > 0)
             {
-                return default(JurosCompostos);
+                jurosCompostos.TaxaJuros = taxaJuros;
+                jurosCompostos.CalcularJurosCompostos();
+                return jurosCompostos;
+                
             };
             
             return default(JurosCompostos);
@@ -30,7 +36,7 @@ namespace ApiTwo.Domain.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync(UrlApiTaxaJuros.Url);
+                var response = await _httpClient.GetAsync(_configuration.GetSection("UrlApiOneTaxaDeJuros").Value);
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var juros = responseBody.Replace(".", ",");

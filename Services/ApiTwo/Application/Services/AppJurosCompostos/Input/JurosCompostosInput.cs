@@ -2,7 +2,7 @@
 
 namespace ApiTwo.Application.Services.AppJurosCompostos.Input
 {
-    public class JurosCompostosFiltroInput
+    public class JurosCompostosInput
     {
         [JsonProperty("valorinicial")]
         public decimal ValorInicial { get; set; }

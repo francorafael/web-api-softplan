@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ApiTwo.Application.Base
 {
+    [ExcludeFromCodeCoverage]
     public class JsonResultBase<TResult> 
         where TResult : class
     {
