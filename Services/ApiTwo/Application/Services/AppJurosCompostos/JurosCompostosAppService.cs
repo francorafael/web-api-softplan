@@ -5,6 +5,7 @@ using ApiTwo.Application.Base;
 using ApiTwo.Application.Interfaces;
 using ApiTwo.Application.Services.AppJurosCompostos.ViewModel;
 using ApiTwo.Domain.Interfaces;
+using ApiTwo.Domain.Models;
 
 namespace ApiTwo.Application.Services.AppJurosCompostos
 {
@@ -12,14 +13,15 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
     {
         private readonly IJurosCompostosDomainService _jurosCompostosDomainService;
 
-        public JurosCompostosAppService(IJurosCompostosDomainService jurosCompostosDomainService)
+        public JurosCompostosAppService(
+            IJurosCompostosDomainService jurosCompostosDomainService)
         {
             _jurosCompostosDomainService = jurosCompostosDomainService;
         }
 
-        public async Task<JsonResultBaseViewModel<JurosCompostosViewModel>> CalcularJurosCompostos(double valorInicial, int tempo)
+        public async Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostos(decimal valorInicial, int tempo)
         {
-            var result = new JsonResultBaseViewModel<JurosCompostosViewModel>();
+            var result = new JsonResultBase<JurosCompostosViewModel>();
             var validarParametros = ValidarParametrosJurosCompostos(valorInicial, tempo);
             
             if (validarParametros.Any())
@@ -30,7 +32,14 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
                 return result;
             }
 
-            var jurosCalculado = await _jurosCompostosDomainService.CalcularJurosCompostos(valorInicial, tempo);
+            var jurosCompostos = new JurosCompostos()
+            {
+                TaxaJuros = 0,
+                Tempo = tempo,
+                ValorInicial = valorInicial
+            };
+
+            var jurosCalculado = await _jurosCompostosDomainService.CalcularJurosCompostos(jurosCompostos);
 
             if (jurosCalculado == null)
             {
@@ -43,14 +52,21 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
                 return result;
             }
 
-            var data = new JurosCompostosViewModel() { Valor = jurosCalculado.Valor };
+            var data = new JurosCompostosViewModel()
+            {
+                ValorInicial = valorInicial,
+                Meses = tempo,
+                JurosCompostosCalculado = jurosCalculado.JurosCompostosCalculado,
+                TaxaJuros = jurosCalculado.TaxaJuros
+            };
+
             result.Data = data;
             result.Error = false;
 
             return result;
         }
 
-        private IList<ValidationMessageBase> ValidarParametrosJurosCompostos(double? valorInicial, int? tempo)
+        private IList<ValidationMessageBase> ValidarParametrosJurosCompostos(decimal? valorInicial, int? tempo)
         {
             var messages = new List<ValidationMessageBase>();
             if(!valorInicial.HasValue || (valorInicial.HasValue && valorInicial.Value <= 0))

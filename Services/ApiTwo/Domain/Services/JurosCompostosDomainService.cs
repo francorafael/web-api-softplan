@@ -15,21 +15,18 @@ namespace ApiTwo.Domain.Services
             _httpClient = httpClient;
         }
         
-        public async Task<JurosCompostosValueObject> CalcularJurosCompostos(double valorInicial, int tempo)
+        public async Task<JurosCompostos> CalcularJurosCompostos(JurosCompostos jurosCompostos)
         {
             var taxaJuros = await ObterTaxaDeJurosApiOne();
             if(taxaJuros > 0)
             {
-                //Valor Inicial * (1 + juros) ^ Tempo. ^ representa a operação de potência.
-
-                var juros = Math.Pow(valorInicial * (1 + taxaJuros), tempo);
-                return new JurosCompostosValueObject() { Valor = Math.Round(juros, 2) };
+                return default(JurosCompostos);
             };
             
-            return default(JurosCompostosValueObject);
+            return default(JurosCompostos);
         }
 
-        private async Task<double> ObterTaxaDeJurosApiOne()
+        private async Task<decimal> ObterTaxaDeJurosApiOne()
         {
             try
             {
@@ -37,7 +34,7 @@ namespace ApiTwo.Domain.Services
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var juros = responseBody.Replace(".", ",");
-                return Math.Round(Convert.ToDouble(juros), 2);
+                return Math.Round(Convert.ToDecimal(juros), 2);
             }
             catch (HttpRequestException)
             {

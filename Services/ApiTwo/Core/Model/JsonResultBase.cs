@@ -2,7 +2,7 @@
 
 namespace ApiTwo.Application.Base
 {
-    public class JsonResultBaseViewModel<TResult> 
+    public class JsonResultBase<TResult> 
         where TResult : class
     {
         public TResult Data { get; set; }

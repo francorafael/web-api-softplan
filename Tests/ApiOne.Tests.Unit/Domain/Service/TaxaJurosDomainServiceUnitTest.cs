@@ -10,7 +10,7 @@ namespace ApiOne.Tests.Unit.Domain.Services
         {
             var domainService = new TaxaJurosDomainService();
             var result = domainService.ObterTaxaDeJuros();
-            Assert.Equal(0.01, result);
+            Assert.Equal(0.01m, result);
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace ApiOne.Tests.Unit.Domain.Services
         {
             var domainService = new TaxaJurosDomainService();
             var result = domainService.ObterTaxaDeJuros();
-            Assert.NotEqual(0.02, result);
+            Assert.NotEqual(0.02m, result);
         }
 
     }

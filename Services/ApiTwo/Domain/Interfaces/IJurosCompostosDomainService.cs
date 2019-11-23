@@ -5,6 +5,6 @@ namespace ApiTwo.Domain.Interfaces
 {
     public interface IJurosCompostosDomainService
     {
-        Task<JurosCompostosValueObject> CalcularJurosCompostos(double valorInicial, int tempo);
+        Task<JurosCompostos> CalcularJurosCompostos(JurosCompostos jurosCompostos);
     }
 }

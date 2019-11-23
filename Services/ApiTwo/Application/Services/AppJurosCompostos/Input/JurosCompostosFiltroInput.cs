@@ -1,8 +1,11 @@
-﻿namespace ApiTwo.Application.Services.AppJurosCompostos.Input
+﻿using Newtonsoft.Json;
+
+namespace ApiTwo.Application.Services.AppJurosCompostos.Input
 {
     public class JurosCompostosFiltroInput
     {
-        public double ValorInicial { get; set; }
-        public int Tempo { get; set; }
+        [JsonProperty("valorinicial")]
+        public decimal ValorInicial { get; set; }
+        public int Meses { get; set; }
     }
 }

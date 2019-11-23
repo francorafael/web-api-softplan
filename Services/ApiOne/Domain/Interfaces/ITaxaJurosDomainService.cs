@@ -2,6 +2,6 @@
 {
     public interface ITaxaJurosDomainService
     {
-        double ObterTaxaDeJuros();
+        decimal ObterTaxaDeJuros();
     }
 }
