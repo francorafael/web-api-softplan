@@ -1,0 +1,36 @@
+<div class="content" role="main">
+  <div class="box-img"><img src="../assets/images/logo-softplan.svg" /></div>
+  <div class="box">
+
+    <div class="form-group" [formGroup]="formGroup">
+      <mat-form-field class="mat-form-field-fluid full-width" appearance="fill" floatLabel="auto">
+        <mat-label>Valor </mat-label>
+        <input type="text" matInput placeholder="Digite o valor" currencyMask
+          [formControl]="formGroup.controls['valor']">
+        <mat-error *ngIf="formGroup.controls['valor'].hasError('required')">O valor é obrigatório.</mat-error>
+        <mat-error *ngIf="formGroup.controls['valor'].hasError('min')">O valor deve ser maior que 0.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="mat-form-field-fluid full-width" appearance="fill" floatLabel="auto">
+        <mat-label>Meses </mat-label>
+        <input type="number" matInput placeholder="Digite a quantidade de meses"
+          [formControl]="formGroup.controls['meses']">
+        <mat-error *ngIf="formGroup.controls['meses'].hasError('required')">A quantidade de meses é obrigatório.</mat-error>
+
+        <mat-error *ngIf="formGroup.controls['meses'].hasError('min')">O mes deve ser maior que 0.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button class="mr-10" color="primary" (click)="calcularJuros()" [disabled]="formGroup.invalid">
+        Calcular Juros </button>
+      <button mat-raised-button (click)="resetForm()">
+        Limpar</button>
+
+    </div>
+
+    <div class='link-git' *ngIf="resultado && resultado != ''">Valor calculado com juros de 1%: {{ resultado }}</div>
+
+    <div class='link-git'><a href="{{ urlGitHub }}" target="_blank">{{ urlGitHub }}</a></div>
+  </div>
+
+</div>
+
+
+<router-outlet></router-outlet>

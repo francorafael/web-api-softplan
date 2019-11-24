@@ -1,23 +1,31 @@
 version: '3.4'
 
 services:
-  api-one.api:
-    image: api-one.api
+  api-one:
+    image: api-one
     build:
       context: .
       dockerfile: Services/ApiOne/Dockerfile
-    environment:
-      TZ: America/Sao_Paulo
-      ASPNETCORE_ENVIRONMENT: Production
     ports:
-      - "9010:80"
-  api-two.api:
-    image: api-two.api
+      - 9010:80
+    container_name: api-one
+  api-two:
+    image: api-two
     build:
       context: .
       dockerfile: Services/ApiTwo/Dockerfile
     environment:
-      TZ: America/Sao_Paulo
-      ASPNETCORE_ENVIRONMENT: Production
+      - UrlApiOneBase=http://api-one/
     ports:
-      - "9000:80"    
+      - 9000:80
+    container_name: api-two
+  app-softplan:
+    image: app-softplan
+    build: 
+      context: .
+      dockerfile: app-softplan/Dockerfile
+    ports:
+      - 3000:80
+networks:    
+  api-one:
+    driver: bridge    

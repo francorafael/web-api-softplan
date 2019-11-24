@@ -32,6 +32,7 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+app-softplan/node_modules/
 
 # Visual Studio 2015
 .vs/

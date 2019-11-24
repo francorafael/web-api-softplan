@@ -3,6 +3,7 @@ using ApiTwo.Application.Interfaces;
 using ApiTwo.Application.Services.AppJurosCompostos.Input;
 using ApiTwo.Application.Services.AppJurosCompostos.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Threading.Tasks;
 

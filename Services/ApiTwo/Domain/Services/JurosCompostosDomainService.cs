@@ -3,6 +3,7 @@ using ApiTwo.Domain.Interfaces;
 using ApiTwo.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -37,11 +38,12 @@ namespace ApiTwo.Domain.Services
         {
             try
             {
-                var requestUri = _configuration.GetSection("UrlApiOneBase").Value + "api/v1/TaxaJuros";
+                var requestUri = _configuration.GetSection("UrlApiOneBase").Value + "api/v1/taxajuros";
                 var response = await _httpClientProvider.GetAsync(requestUri);
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var juros = responseBody.Replace(".", ",");
-                return Math.Round(Convert.ToDecimal(juros), 2);
+                CultureInfo usCulture = new CultureInfo("en-US");
+                var juros = Convert.ToDecimal(responseBody.Replace(",", ".").Trim(), usCulture);
+                return Math.Round(juros, 2);
             }
             catch (HttpRequestException)
             {
