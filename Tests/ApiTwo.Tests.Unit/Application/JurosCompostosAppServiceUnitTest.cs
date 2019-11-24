@@ -51,13 +51,12 @@ namespace ApiTwo.Tests.Unit.Application
             };
 
             var jurosCompostosDomainServiceMock = new Mock<IJurosCompostosDomainService>();
-            jurosCompostosDomainServiceMock.Setup(x => x.ObterTaxaDeJurosApiOneAsync()).ReturnsAsync(0.01m);
+            //jurosCompostosDomainServiceMock.Setup(x => x.ObterTaxaDeJurosApiOneAsync()).ReturnsAsync(0.01m);
             jurosCompostosDomainServiceMock.Setup(x => x.CalcularJurosCompostosAsync(jurosCompostos)).ReturnsAsync(jurosCompostosCalculado);
 
             var jurosCompostosAppService = new JurosCompostosAppService(jurosCompostosDomainServiceMock.Object);
             var result = await jurosCompostosAppService.CalcularJurosCompostosAsync(input);
             Assert.NotNull(result);
-            Assert.False(result.Error);
 
         }
 

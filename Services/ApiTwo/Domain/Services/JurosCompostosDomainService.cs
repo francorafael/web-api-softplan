@@ -33,7 +33,7 @@ namespace ApiTwo.Domain.Services
             return default(JurosCompostos);
         }
 
-        public async Task<decimal> ObterTaxaDeJurosApiOneAsync()
+        private async Task<decimal> ObterTaxaDeJurosApiOneAsync()
         {
             try
             {
