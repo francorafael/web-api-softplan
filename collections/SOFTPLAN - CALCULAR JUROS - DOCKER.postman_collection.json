@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "21df242e-adbd-46b6-94e0-05ca363f3e1c",
+		"name": "SOFTPLAN - CALCULAR JUROS - DOCKER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API - ONE - GET TAXA JUROS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9010/api/v1/taxajuros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9010",
+					"path": [
+						"api",
+						"v1",
+						"taxajuros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API - TWO - GET SHOW ME CODE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/v1/CodigoGitHub/showmethecode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"CodigoGitHub",
+						"showmethecode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API - TWO - POST - CALCULAR JUROS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/v1/JurosCompostos/calculajuros?valorinicial=100&meses=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"JurosCompostos",
+						"calculajuros"
+					],
+					"query": [
+						{
+							"key": "valorinicial",
+							"value": "100"
+						},
+						{
+							"key": "meses",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0f786bf7-6679-424c-b286-700d7c982a64",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "14d1ed9e-da3a-4a83-8f26-a2e0975ca1d1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
