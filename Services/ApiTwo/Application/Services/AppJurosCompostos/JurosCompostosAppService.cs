@@ -21,7 +21,7 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
             _jurosCompostosDomainService = jurosCompostosDomainService;
         }
 
-        public async Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostos(JurosCompostosInput input)
+        public async Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostosAsync(JurosCompostosInput input)
         {
             var result = new JsonResultBase<JurosCompostosViewModel>();
          
@@ -42,7 +42,7 @@ namespace ApiTwo.Application.Services.AppJurosCompostos
                 ValorInicial = input.ValorInicial
             };
 
-            var jurosCalculado = await _jurosCompostosDomainService.CalcularJurosCompostos(jurosCompostos);
+            var jurosCalculado = await _jurosCompostosDomainService.CalcularJurosCompostosAsync(jurosCompostos);
 
             if (jurosCalculado == null)
             {

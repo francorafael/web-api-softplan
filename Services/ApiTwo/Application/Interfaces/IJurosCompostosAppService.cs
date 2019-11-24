@@ -7,6 +7,6 @@ namespace ApiTwo.Application.Interfaces
 {
     public interface IJurosCompostosAppService
     {
-        Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostos(JurosCompostosInput filtroInput);
+        Task<JsonResultBase<JurosCompostosViewModel>> CalcularJurosCompostosAsync(JurosCompostosInput filtroInput);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ApiTwo.Domain.Interfaces;
+﻿using ApiTwo.Core;
+using ApiTwo.Domain.Interfaces;
 using ApiTwo.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,18 +10,18 @@ namespace ApiTwo.Domain.Services
 {
     public class JurosCompostosDomainService : IJurosCompostosDomainService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientProvider _httpClientProvider;
         private readonly IConfiguration _configuration;
 
-        public JurosCompostosDomainService(HttpClient httpClient, IConfiguration configuration)
+        public JurosCompostosDomainService(IHttpClientProvider httpClientProvider, IConfiguration configuration)
         {
-            _httpClient = httpClient;
+            _httpClientProvider = httpClientProvider;
             _configuration = configuration;
         }
         
-        public async Task<JurosCompostos> CalcularJurosCompostos(JurosCompostos jurosCompostos)
+        public async Task<JurosCompostos> CalcularJurosCompostosAsync(JurosCompostos jurosCompostos)
         {
-            var taxaJuros = await ObterTaxaDeJurosApiOne();
+            var taxaJuros = await ObterTaxaDeJurosApiOneAsync();
             if(taxaJuros > 0)
             {
                 jurosCompostos.TaxaJuros = taxaJuros;
@@ -32,12 +33,12 @@ namespace ApiTwo.Domain.Services
             return default(JurosCompostos);
         }
 
-        private async Task<decimal> ObterTaxaDeJurosApiOne()
+        public async Task<decimal> ObterTaxaDeJurosApiOneAsync()
         {
             try
             {
-                var response = await _httpClient.GetAsync(_configuration.GetSection("UrlApiOneTaxaDeJuros").Value);
-                response.EnsureSuccessStatusCode();
+                var requestUri = _configuration.GetSection("UrlApiOneTaxaDeJuros").Value;
+                var response = await _httpClientProvider.GetAsync(requestUri);
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var juros = responseBody.Replace(".", ",");
                 return Math.Round(Convert.ToDecimal(juros), 2);

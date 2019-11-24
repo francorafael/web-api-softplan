@@ -1,5 +1,7 @@
 ﻿using ApiTwo.Application.Interfaces;
 using ApiTwo.Application.Services.AppJurosCompostos;
+using ApiTwo.Core;
+using ApiTwo.Core.Providers;
 using ApiTwo.Domain.Interfaces;
 using ApiTwo.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,11 +14,11 @@ namespace ApiTwo.Infra
     {
         public void RootRegisterServices(IServiceCollection services)
         {
-            services.AddHttpClient<JurosCompostosDomainService>();
+            services.AddSingleton<IHttpClientProvider, HttpClientProvider>();
+            services.AddHttpClient<IHttpClientProvider, HttpClientProvider>();
             services.AddSingleton<IJurosCompostosAppService, JurosCompostosAppService>();
             services.AddSingleton<ICodigoGitHubDomainService, CodigoGitHubDomainService>();
             services.AddSingleton<IJurosCompostosDomainService, JurosCompostosDomainService>();
-            services.AddHttpClient<IJurosCompostosDomainService, JurosCompostosDomainService>();
         }
     }
 }

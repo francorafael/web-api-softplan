@@ -5,6 +5,7 @@ namespace ApiTwo.Domain.Interfaces
 {
     public interface IJurosCompostosDomainService
     {
-        Task<JurosCompostos> CalcularJurosCompostos(JurosCompostos jurosCompostos);
+        Task<JurosCompostos> CalcularJurosCompostosAsync(JurosCompostos jurosCompostos);
+        Task<decimal> ObterTaxaDeJurosApiOneAsync();
     }
 }
