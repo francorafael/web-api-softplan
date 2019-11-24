@@ -18,7 +18,12 @@ namespace ApiOne
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((host, config) =>
+                {
+                    var jsonFileName = host.HostingEnvironment.IsProduction() ? "appsettings.json" : "appsettings.Development.json";
+                    config.AddJsonFile(jsonFileName);
+                })
                 .UseStartup<Startup>();
     }
 }

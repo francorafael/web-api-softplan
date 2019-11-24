@@ -21,7 +21,7 @@ namespace ApiTwo.Tests.Unit.Domain.Service
 
             var configurationSectionMock = new Mock<IConfigurationSection>();
             configurationSectionMock.Setup(x => x.Value).Returns("http://localhost:59789/api/v1/TaxaJuros");
-            configurationMock.Setup(x => x.GetSection("UrlApiOneTaxaDeJuros")).Returns(configurationSectionMock.Object);
+            configurationMock.Setup(x => x.GetSection("UrlApiOneBase")).Returns(configurationSectionMock.Object);
 
             var fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
             HttpContent content = new StringContent("0.01");
@@ -58,7 +58,7 @@ namespace ApiTwo.Tests.Unit.Domain.Service
 
             var configurationSectionMock = new Mock<IConfigurationSection>();
             configurationSectionMock.Setup(x => x.Value).Returns("http://localhost:59789/api/v1/TaxaJuros");
-            configurationMock.Setup(x => x.GetSection("UrlApiOneTaxaDeJuros")).Returns(configurationSectionMock.Object);
+            configurationMock.Setup(x => x.GetSection("UrlApiOneBase")).Returns(configurationSectionMock.Object);
 
             var fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
             HttpContent content = new StringContent("0.00");

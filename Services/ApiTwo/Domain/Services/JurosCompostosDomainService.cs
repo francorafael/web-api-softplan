@@ -37,7 +37,7 @@ namespace ApiTwo.Domain.Services
         {
             try
             {
-                var requestUri = _configuration.GetSection("UrlApiOneTaxaDeJuros").Value;
+                var requestUri = _configuration.GetSection("UrlApiOneBase").Value + "api/v1/TaxaJuros";
                 var response = await _httpClientProvider.GetAsync(requestUri);
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var juros = responseBody.Replace(".", ",");
